@@ -7,4 +7,4 @@
 for k = 1:length(y)
     IQ(k) = y(k, 1) + i*y(k, 2);
 end
-[Pxx, W] = pwelch[IQ]
+[Pxx, W] = pwelch[IQ];xx
