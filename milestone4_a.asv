@@ -1,0 +1,10 @@
+%   Allison Pitzl
+%   Milestone 4 part A
+%   created 3/30/2022
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+[y, Fs] = audioread('IQ.wav'); % reads IQ data from file
+for i = 1:length(y)
+    IQ(i
+end
+[Pxx, W] = pwelch[IQ]
