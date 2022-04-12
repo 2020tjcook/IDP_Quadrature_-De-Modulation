@@ -1,7 +1,6 @@
-%   Allison Pitzl
+%   Jimmy Cook
 %   Milestone 4 part A
-%   created 3/30/2022
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   3/30/2022
 
 [y, Fs] = audioread('IQ.wav'); % reads IQ data from file
 for k = 1:length(y)
@@ -9,8 +8,8 @@ for k = 1:length(y)
 end
 [Pxx, W] = pwelch(IQ);
 semilogy(W, Pxx);
-[B, a] = butter(5, 10000/(Fs/2));
+[B, a] = butter(5, 40000/(Fs/2));
 IQfilt = filtfilt(B, a, IQ);
 [Pxx, W] = pwelch(IQfilt);
-%semilogy(W, Pxx); 
- 
+semilogy(W, Pxx); 
+plot(IQfilt);
