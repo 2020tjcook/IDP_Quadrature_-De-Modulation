@@ -1,6 +1,6 @@
 %   Jimmy Cook
 %   Milestone 4 part A
-%   3/30/2022
+%   4/06/22
 
 [y, Fs] = audioread('IQ.wav'); % reads IQ data from file
 for k = 1:length(y)
