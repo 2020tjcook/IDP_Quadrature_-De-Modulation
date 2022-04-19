@@ -7,7 +7,7 @@
 for k = 1:length(y)
     IQ(k) = y(k, 1) + i*y(k, 2);
 end
-%Calculates the welch's power spectral density estimate (should be centered
+%Calculates the welch's power spectral density estimate (unfiltered)(should be centered
 %around 0
 [Pxx, W] = pwelch(IQ);
 %Plots the welch's power spectral density estimate
@@ -23,31 +23,15 @@ IQfilt = filtfilt(B, a, IQ);
 %semilogy(W, Pxx); 
 %Plots the filtered IQ data
 %plot(IQfilt);
-%Calculates array of finite differences of angle between IQfilt samples
-%{
-for k = 2:length(IQfilt)
-    IQangle(k-1) = angle(IQfilt(k))-angle(IQfilt(k-1));
-end
 %29 is the start of the first recorded bit. There are 250 samples/bit due
 %to 9.6Kbps data rate and 2.4MHz sample frequency, so add half of 250 to
 %sample the middle of the bit
-
-counter = 29+125;
-index = 1;
-%Calculate the digital output array of data
-while counter<length(IQangle)
-    if IQangle(counter) > 0
-        data(index) = 1;
-    else
-        data(index) = 0;
-    end
-    index = index + 1;
-    counter = counter+250;
-end
-%}
-
+%Calculate the angle finite differences
 finalAngle = diff(unwrap(angle(IQfilt)));
+%sample the angle every 250 samples due to 9.6Kbps data rate and 2.4MHz
+%sample rate
 sampledAngle = finalAngle(179:250:length(finalAngle));
+%Determine digital data based on
 for k = 1:length(sampledAngle)
     if sampledAngle(k) > 0
         finalData(k) = 1;
