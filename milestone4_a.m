@@ -20,11 +20,9 @@ IQfilt = filtfilt(B, a, IQ);
 %data
 %[Pxx, W] = pwelch(IQfilt);
 %Plots the welch's power spectral density estimate for filtered IQ data
-figure(1)
-semilogy(W, Pxx); 
+%semilogy(W, Pxx); 
 %Plots the filtered IQ data
-figure(2)
-plot(IQfilt);
+%plot(IQfilt);
 %Calculates array of finite differences of angle between IQfilt samples
 for k = 2:length(IQfilt)
     IQangle(k-1) = angle(IQfilt(k))-angle(IQfilt(k-1));
@@ -43,4 +41,14 @@ while counter<length(IQangle)
     end
     index = index + 1;
     counter = counter+250;
+end
+
+angle = diff(unwrap(angle(IQfilt)));
+sampledAngle = angleTest(179:250:length(angleTest));
+for k = 1:length(sampledAngle)
+    if sampledAngle(k) > 0
+        finalData(k) = 1;
+    else
+        finalData(k) = 0;
+    end
 end

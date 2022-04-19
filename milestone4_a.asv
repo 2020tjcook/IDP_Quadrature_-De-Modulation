@@ -29,9 +29,12 @@ plot(IQfilt);
 for k = 2:length(IQfilt)
     IQangle(k-1) = angle(IQfilt(k))-angle(IQfilt(k-1));
 end
-%29 is the start of the first recorded bit, add half
+%29 is the start of the first recorded bit. There are 250 samples/bit due
+%to 9.6Kbps data rate and 2.4MHz sample frequency, so add half of 250 to
+%sample the middle of the bit
 counter = 29+125;
 index = 1;
+%Calculate the digital output array of data
 while counter<length(IQangle)
     if IQangle(counter) > 0
         data(index) = 1;
@@ -42,6 +45,5 @@ while counter<length(IQangle)
     counter = counter+250;
 end
 
-for k= 1:2000
-    b(k) = IQangle(k);
-end
+dataTest = diff(unwrap(angle(IQfilt)))(;
+
