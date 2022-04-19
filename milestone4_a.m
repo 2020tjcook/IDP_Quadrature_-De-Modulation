@@ -24,12 +24,14 @@ IQfilt = filtfilt(B, a, IQ);
 %Plots the filtered IQ data
 %plot(IQfilt);
 %Calculates array of finite differences of angle between IQfilt samples
+%{
 for k = 2:length(IQfilt)
     IQangle(k-1) = angle(IQfilt(k))-angle(IQfilt(k-1));
 end
 %29 is the start of the first recorded bit. There are 250 samples/bit due
 %to 9.6Kbps data rate and 2.4MHz sample frequency, so add half of 250 to
 %sample the middle of the bit
+
 counter = 29+125;
 index = 1;
 %Calculate the digital output array of data
@@ -42,9 +44,10 @@ while counter<length(IQangle)
     index = index + 1;
     counter = counter+250;
 end
+%}
 
-angle = diff(unwrap(angle(IQfilt)));
-sampledAngle = angleTest(179:250:length(angleTest));
+finalAngle = diff(unwrap(angle(IQfilt)));
+sampledAngle = finalAngle(179:250:length(finalAngle));
 for k = 1:length(sampledAngle)
     if sampledAngle(k) > 0
         finalData(k) = 1;
