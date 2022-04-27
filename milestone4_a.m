@@ -2,7 +2,7 @@
 %   Milestone 4 part A
 %   4/06/22
 
-[y, Fs] = audioread('IQ.wav'); % reads IQ data from file
+[y, Fs] = audioread('iq_2_more.wav'); % reads IQ data from file
 %Creates the IQ complex vectors from the read IQ data
 for k = 1:length(y)
     IQ(k) = y(k, 1) + i*y(k, 2);
@@ -30,7 +30,7 @@ IQfilt = filtfilt(B, a, IQ);
 finalAngle = diff(unwrap(angle(IQfilt)));
 %sample the angle every 250 samples due to 9.6Kbps data rate and 2.4MHz
 %sample rate
-sampledAngle = finalAngle(179:250:length(finalAngle));
+sampledAngle = finalAngle(1:250:length(finalAngle));
 %Determine digital data based on
 for k = 1:length(sampledAngle)
     if sampledAngle(k) > 0
